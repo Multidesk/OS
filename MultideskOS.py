@@ -6,14 +6,18 @@ Chez Multidesk on commente pas son code, il doit être compréhensible sans comm
 """
 
 import time,sys
-from os import system,getlogin
+from os import system, getlogin, geteuid
 from random import randint
 
 shutdown=False
 
 SPLASH="███╗   ███╗██╗   ██╗██╗  ████████╗██╗██████╗ ███████╗███████╗██╗  ██╗ ██████╗ ███████╗\n████╗ ████║██║   ██║██║  ╚══██╔══╝██║██╔══██╗██╔════╝██╔════╝██║ ██╔╝██╔═══██╗██╔════╝\n██╔████╔██║██║   ██║██║     ██║   ██║██║  ██║█████╗  ███████╗█████╔╝ ██║   ██║███████╗\n██║╚██╔╝██║██║   ██║██║     ██║   ██║██║  ██║██╔══╝  ╚════██║██╔═██╗ ██║   ██║╚════██║\n██║ ╚═╝ ██║╚██████╔╝███████╗██║   ██║██████╔╝███████╗███████║██║  ██╗╚██████╔╝███████║\n╚═╝     ╚═╝ ╚═════╝ ╚══════╝╚═╝   ╚═╝╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝\n"
+try:
+    USER=getlogin().upper()
+except:
+    from pwd import getpwuid
+    USER=getpwuid(geteuid())[0].upper()
 
-USER=getlogin().upper()
 MENU_LIST=['BIOS','Start (Pas le même que sur le Windows)','Panneau de configuration (Idem mais ça bug)','Program files','Aide','Stop']
 MENU_APPLICATIONS=['DOSEmu (Mieux que Windows NT)','Microsoft (Pas obligé)','Compute','Eclipse pour ArnoldC','Windows Vistux Mint','AntiBug v2.0','FTP']
 
@@ -93,7 +97,7 @@ while not shutdown and error == 0:
     elif cx == '3':
         pt_l(MENU_APPLICATIONS)
         cx = ent()
-        
+
         if cx == '0':
             pt_err("'\\' found in home path, '/' expected.'")
         elif cx == '1':
