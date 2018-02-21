@@ -6,16 +6,20 @@ Chez Multidesk on commente pas son code, il doit être compréhensible sans comm
 """
 
 import time,sys
-from os import system,getlogin
+from os import system, getlogin, geteuid
 from random import randint
 
 shutdown=False
 
 SPLASH="███╗   ███╗██╗   ██╗██╗  ████████╗██╗██████╗ ███████╗███████╗██╗  ██╗ ██████╗ ███████╗\n████╗ ████║██║   ██║██║  ╚══██╔══╝██║██╔══██╗██╔════╝██╔════╝██║ ██╔╝██╔═══██╗██╔════╝\n██╔████╔██║██║   ██║██║     ██║   ██║██║  ██║█████╗  ███████╗█████╔╝ ██║   ██║███████╗\n██║╚██╔╝██║██║   ██║██║     ██║   ██║██║  ██║██╔══╝  ╚════██║██╔═██╗ ██║   ██║╚════██║\n██║ ╚═╝ ██║╚██████╔╝███████╗██║   ██║██████╔╝███████╗███████║██║  ██╗╚██████╔╝███████║\n╚═╝     ╚═╝ ╚═════╝ ╚══════╝╚═╝   ╚═╝╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚══════╝\n"
+try:
+    USER=getlogin().upper()
+except:
+    from pwd import getpwuid
+    USER=getpwuid(geteuid())[0].upper()
 
-USER=getlogin().upper()
 MENU_LIST=['BIOS','Start (Pas le même que sur le Windows)','Panneau de configuration (Idem mais ça bug)','Program files','Aide','Stop']
-MENU_APPLICATIONS=['DOSEmu (Mieux que Windows NT)','Microsoft (Pas obligé)','Compute','Eclipse pour ArnoldC','Windows Vistux Mint','AntiBug v2.0','FTP']
+MENU_APPLICATIONS=['DOSEmu (Mieux que Windows NT)','Microsoft (Pas obligé)','Compute','Eclipse pour ArnoldC','Windows Vistux Mint','AntiBug v2.0','FTP','Horoscopy']
 
 cx = None
 error = 0
@@ -74,6 +78,31 @@ def c_blue(string):
 
 ###############################################################
 
+
+from random import randint, seed
+from datetime import date
+
+
+def start_horoscopy():
+    aujourdhui = str(date.today())
+    aujourdhui = aujourdhui[0:4] + aujourdhui[5:7] + aujourdhui[8:10]
+
+    my_seed = seed(int(aujourdhui))
+
+    x = randint(1,10)
+
+    user_input = input("\nTa date de naissance sous la forme jj/mm/aa\n")
+
+    signe = check_signes(user_input)
+
+
+def check_signes(user_input):
+    pt("ton signe c'est de la merde")
+    pt("aujourdhui tu vas en chier\n")
+
+
+###############################################################
+
 startx()
 
 pt_l(MENU_LIST)
@@ -93,7 +122,7 @@ while not shutdown and error == 0:
     elif cx == '3':
         pt_l(MENU_APPLICATIONS)
         cx = ent()
-        
+
         if cx == '0':
             pt_err("'\\' found in home path, '/' expected.'")
         elif cx == '1':
@@ -125,6 +154,9 @@ while not shutdown and error == 0:
             pt(c_green('Les serveurs ne sont pas POP ou IMAP'))
             pt('Entrez votre serveur:')
             ent()
+        elif cx == '7':
+            start_horoscopy()
+
 
     elif cx == '4' or cx == 'h' or cx == 'help':
         pt(c_blue('http://www.multideskos.com/'))
