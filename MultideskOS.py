@@ -18,7 +18,7 @@ except:
     from pwd import getpwuid
     USER=getpwuid(geteuid())[0].upper()
 
-MENU_LIST=['BIOS','Start (Pas le même que sur le Windows)','Panneau de configuration (Idem mais ça bug)','Program files','Aide','Stop']
+MENU_LIST=['BIOS','Start (Pas le même que sur le Windows)','Panneau de configuration (Idem mais ça bug)','Program files','Aide','Définition phonétique','Stop']
 MENU_APPLICATIONS=['DOSEmu (Mieux que Windows NT)','Microsoft (Pas obligé)','Compute','Eclipse pour ArnoldC','Windows Vistux Mint','AntiBug v2.0','FTP','Horoscopy']
 
 cx = None
@@ -105,8 +105,8 @@ def check_signes(user_input):
 
 startx()
 
-pt_l(MENU_LIST)
 while not shutdown and error == 0:
+    pt_l(MENU_LIST)
     cx = None
     cx = ent()
     if cx == '':
@@ -161,7 +161,10 @@ while not shutdown and error == 0:
     elif cx == '4' or cx == 'h' or cx == 'help':
         pt(c_blue('http://www.multideskos.com/'))
 
-    elif cx == '5' or cx == 'q' or cx == 'exit':
+    elif cx == '5':
+        pt("La phonétique (du grec « phônê » qui signifie la « voix », le « son ») est une branche de la linguistique qui étudie les sons utilisés dans la communication parlée. À la différence de la phonologie, qui étudie comment sont agencés les phonèmes d'une langue pour former des mots, la phonétique concerne les sons eux-mêmes (les unités phonétiques, les « phones »), leur production, leur variation plutôt que leur contexte. La sémantique ne fait donc pas partie de ce niveau d'analyse linguistique.")
+        
+    elif cx == '6' or cx == 'q' or cx == 'exit':
         shutdown = True
     elif cx.upper() == USER:
         pt(c_green('Vous venez d\'appeler une fonction.'))
