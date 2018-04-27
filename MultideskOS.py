@@ -5,9 +5,14 @@
 Chez Multidesk on commente pas son code, il doit être compréhensible sans commentaires.
 """
 
-import time,sys
+import time, sys
 from os import system, getlogin, geteuid
 from random import randint
+
+from static import *
+
+import Horoscopy as hsp
+import NoHomoBot as nhb
 
 shutdown=False
 
@@ -19,7 +24,7 @@ except:
     USER=getpwuid(geteuid())[0].upper()
 
 MENU_LIST=['BIOS','Start (Pas le même que sur le Windows)','Panneau de configuration (Idem mais ça bug)','Program files','Aide','Définition phonétique','Stop']
-MENU_APPLICATIONS=['DOSEmu (Mieux que Windows NT)','Microsoft (Pas obligé)','Compute','Eclipse pour ArnoldC','Windows Vistux Mint','AntiBug v2.0','FTP','Horoscopy']
+MENU_APPLICATIONS=['DOSEmu (Mieux que Windows NT)','Microsoft (Pas obligé)','Compute','Eclipse pour ArnoldC','Windows Vistux Mint','AntiBug v2.0','FTP','Horoscopy','No Homo Bot']
 
 cx = None
 error = 0
@@ -47,61 +52,7 @@ def startx():
     pt(c_blue(USER))
     pt('....')
 
-def pt(arguments):
-    print('$> '+str(arguments))
-
-def pt_err(err):
-    print(c_red('/!\ ')+str(err))
-
-def ent():
-    return str(input("?> "))
-
-def pt_l(list):
-    print("\n")
-    for i,j in enumerate(list):
-        time.sleep(0.15)
-        print(str(i)+'> '+j)
-        time.sleep(0.15)
-
-def c_green(string):
-    return('\033[92m'+str(string)+'\033[0m')
-
-def c_red(string):
-    return('\033[91m'+str(string)+'\033[0m')
-
-def c_lblue(string):
-    return('\033[94m'+str(string)+'\033[0m')
-
-def c_blue(string):
-    return('\033[34m'+str(string)+'\033[0m')
-
-
-###############################################################
-
-
-from random import randint, seed
-from datetime import date
-
-
-def start_horoscopy():
-    aujourdhui = str(date.today())
-    aujourdhui = aujourdhui[0:4] + aujourdhui[5:7] + aujourdhui[8:10]
-
-    my_seed = seed(int(aujourdhui))
-
-    x = randint(1,10)
-
-    user_input = input("\nTa date de naissance sous la forme jj/mm/aa\n")
-
-    signe = check_signes(user_input)
-
-
-def check_signes(user_input):
-    pt("ton signe c'est de la merde")
-    pt("aujourdhui tu vas en chier\n")
-
-
-###############################################################
+################################################################################
 
 startx()
 
@@ -155,15 +106,17 @@ while not shutdown and error == 0:
             pt('Entrez votre serveur:')
             ent()
         elif cx == '7':
-            start_horoscopy()
+            hsp.start_horoscopy()
+        elif cx == '8':
+            nhb.start_no_homo_bot()
 
 
     elif cx == '4' or cx == 'h' or cx == 'help':
         pt(c_blue('http://www.multideskos.com/'))
 
     elif cx == '5':
-        pt("La phonétique (du grec « phônê » qui signifie la « voix », le « son ») est une branche de la linguistique qui étudie les sons utilisés dans la communication parlée. À la différence de la phonologie, qui étudie comment sont agencés les phonèmes d'une langue pour former des mots, la phonétique concerne les sons eux-mêmes (les unités phonétiques, les « phones »), leur production, leur variation plutôt que leur contexte. La sémantique ne fait donc pas partie de ce niveau d'analyse linguistique.")
-        
+        pt(c_green("La phonétique (du grec « phônê » qui signifie la « voix », le « son ») est une branche de la linguistique qui étudie les sons utilisés dans la communication parlée. À la différence de la phonologie, qui étudie comment sont agencés les phonèmes d'une langue pour former des mots, la phonétique concerne les sons eux-mêmes (les unités phonétiques, les « phones »), leur production, leur variation plutôt que leur contexte. La sémantique ne fait donc pas partie de ce niveau d'analyse linguistique."))
+
     elif cx == '6' or cx == 'q' or cx == 'exit':
         shutdown = True
     elif cx.upper() == USER:
