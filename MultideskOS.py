@@ -9,7 +9,8 @@ import time, sys
 from os import system, getlogin, geteuid
 from random import randint
 
-from static import *
+from static import pt, pt_chrono, pt_err, ent, pt_l, \
+                c_green, c_red, c_lblue, c_blue
 
 import Horoscopy as hsp
 import NoHomoBot as nhb

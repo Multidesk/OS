@@ -2,25 +2,36 @@ pygame_installed = True
 
 try:
     import time, pygame
-    from pygame.locals import *
 
 except:
     pygame_installed = False
 
-from static import *
+from static import pt, pt_chrono, pt_err, ent, pt_l, \
+                c_green, c_red, c_lblue, c_blue
 
 def choose_time_to_play():
     pt("Prier d'entrer la durée en minutes ")
 
     duree = input()
 
+    foutage_de_gueule = False
     while not duree.isdigit() or int(duree) > 10:
         print()
-        if not duree.isdigit():
+        if duree[0]=='-' and duree[1:].isdigit():
+            if foutage_de_gueule:
+                pt("Un entier positif grosse merde")
+            else:
+                pt("Donne moi un nombre naturel quoi")
+            foutage_de_gueule = False
+
+        elif not duree.isdigit():
             pt("Erreur, je veux  un entier petit con")
             pt("Prier d'entrer la durée en minutes ")
+            foutage_de_gueule = True
+
         else:
-            pt("Une durée inférieure à 10 minutes stp")
+            pt("Une durée inférieure à 10 minutes et une seconde stp")
+            foutage_de_gueule = False
 
         duree = input()
     print()
