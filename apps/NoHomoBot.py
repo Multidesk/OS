@@ -6,7 +6,7 @@ try:
 except:
     pygame_installed = False
 
-from static import pt, pt_chrono, pt_err, ent, pt_l, \
+from static.static import pt, pt_chrono, pt_err, ent, pt_l, \
                 c_green, c_red, c_lblue, c_blue
 
 def choose_time_to_play():
@@ -52,7 +52,7 @@ def start_no_homo_bot():
 
         duree = choose_time_to_play()
 
-        son = pygame.mixer.Sound("nohomo.wav")
+        son = pygame.mixer.Sound("sounds/nohomo.wav")
 
         start_time = time.time()
         print_chrono(duree, 0)

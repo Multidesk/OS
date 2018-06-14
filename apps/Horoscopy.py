@@ -1,4 +1,4 @@
-from static import *
+from static.static import *
 
 from random import randint, seed
 from datetime import date
