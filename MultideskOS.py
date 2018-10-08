@@ -25,7 +25,7 @@ except:
     USER=getpwuid(geteuid())[0].upper()
 
 MENU_LIST=['BIOS','Start (Pas le même que sur le Windows)','Panneau de configuration (Idem mais ça bug)','Program files','Aide','Définition phonétique','Stop']
-MENU_APPLICATIONS=['DOSEmu (Mieux que Windows NT)','Microsoft (Pas obligé)','Compute','Eclipse pour ArnoldC','Windows Vistux Mint','AntiBug v2.0','FTP','Horoscopy','No Homo Bot']
+MENU_APPLICATIONS=['DOSEmu (Mieux que Windows NT)','Microsoft (Pas obligé)','Compute','Eclipse pour ArnoldC','Windows Vistux Mint','AntiBug v2.0','FTP','Horoscopy','No Homo Bot','VMultideskOS']
 
 cx = None
 error = 0
@@ -57,83 +57,112 @@ def startx():
 
 startx()
 
-while not shutdown and error == 0:
-    pt_l(MENU_LIST)
-    cx = None
-    cx = ent()
-    if cx == '':
-        cx = ent()
-    elif cx == ('menu' or 'm'):
+def main(shutdown,cx,error,MENU_LIST,MENU_APPLICATIONS):
+
+    while not shutdown and error == 0:
         pt_l(MENU_LIST)
-    elif cx == '0':
-        pt(c_green('On a pas encore mis le BIOS mais on va le mettre'))
-    elif cx == '1':
-        pt(c_green('C\'est déjà démarré...'))
-    elif cx == '2':
-        error = 1
-    elif cx == '3':
-        pt_l(MENU_APPLICATIONS)
+        cx = None
         cx = ent()
-
-        if cx == '0':
-            pt_err("'\\' found in home path, '/' expected.'")
+        if cx == '':
+            cx = ent()
+        elif cx == ('menu' or 'm'):
+            pt_l(MENU_LIST)
+        elif cx == '0':
+            pt(c_green('On a pas encore mis le BIOS mais on va le mettre'))
         elif cx == '1':
-            pt(c_green('Vraiment j\'insiste, c\'est à chier Microsoft...'))
+            pt(c_green('C\'est déjà démarré...'))
         elif cx == '2':
-            pt(c_green('\n#Compute> ON'))
-            while 1:
-                computed = ent()
-                pt(c_red(computed))
-                time.sleep(0.2)
-                print(c_green("Done. (0.2ms)"))
-        elif cx == '3':
-            print(c_green("JAVA> Java2K.JAR ..."))
-            time.sleep(5)
-            pt_err('Fichier trop lent')
             error = 1
-        elif cx == '4':
-            pt_err("Ce programme essaye d'executer un exe windows, mais les exe windows ne tournent pas sous dos comme MultideskOS")
-            error = 2
+        elif cx == '3':
+            pt_l(MENU_APPLICATIONS)
+            cx = ent()
+
+            if cx == '0':
+                pt_err("'\\' found in home path, '/' expected.'")
+            elif cx == '1':
+                pt(c_green('Vraiment j\'insiste, c\'est à chier Microsoft...'))
+            elif cx == '2':
+                pt(c_green('\n#Compute> ON'))
+                while 1:
+                    computed = ent()
+                    pt(c_red(computed))
+                    time.sleep(0.2)
+                    print(c_green("Done. (0.2ms)"))
+            elif cx == '3':
+                print(c_green("JAVA> Java2K.JAR ..."))
+                time.sleep(5)
+                pt_err('Fichier trop lent')
+                error = 1
+            elif cx == '4':
+                pt_err("Ce programme essaye d'executer un exe windows, mais les exe windows ne tournent pas sous dos comme MultideskOS")
+                error = 2
+            elif cx == '5':
+                pt('Scan des bugs...')
+                for i in range(5):
+                    time.sleep(0.8)
+                    print('.',end='')
+                    sys.stdout.flush()
+                print('')
+                pt_err("Il y a 2-3 bugs mais pas de hacks")
+            elif cx == '6':
+                pt(c_green('Les serveurs ne sont pas POP ou IMAP'))
+                pt('Entrez votre serveur:')
+                ent()
+            elif cx == '7':
+                hsp.start_horoscopy()
+            elif cx == '8':
+                nhb.start_no_homo_bot()
+            elif cx == '9':
+                pt(c_green('Veuillez sélectionner le système à lancer de manière virtualisée'))
+                pt(c_green("Soit X un os proposé par la machine virtuel de MultideskOS, la qualité de X >= la qualité de MultideskOS"))
+
+                print()
+                pt("1. MultideskOS")
+                print()
+                print()
+
+                pt("0. Quitter la VMultideskOS")
+                print()
+
+                choice = ent()
+
+                if choice == '1':
+                    startx()
+
+                    main(shutdown,cx,error,MENU_LIST,MENU_APPLICATIONS)
+
+                    print()
+                    pt(c_green("extinction de la VMultideskOS..."))
+                    print()
+
+                elif choice == '2':
+                    pt_err("erreur d'encodage")
+
+
+        elif cx == '4' or cx == 'h' or cx == 'help':
+            pt(c_blue('http://www.multideskos.com/'))
+
         elif cx == '5':
-            pt('Scan des bugs...')
-            for i in range(5):
-                time.sleep(0.8)
-                print('.',end='')
-                sys.stdout.flush()
-            print('')
-            pt_err("Il y a 2-3 bugs mais pas de hacks")
-        elif cx == '6':
-            pt(c_green('Les serveurs ne sont pas POP ou IMAP'))
-            pt('Entrez votre serveur:')
-            ent()
-        elif cx == '7':
-            hsp.start_horoscopy()
-        elif cx == '8':
-            nhb.start_no_homo_bot()
+            pt(c_green("La phonétique (du grec « phônê » qui signifie la « voix », le « son ») est une branche de la linguistique qui étudie les sons utilisés dans la communication parlée. À la différence de la phonologie, qui étudie comment sont agencés les phonèmes d'une langue pour former des mots, la phonétique concerne les sons eux-mêmes (les unités phonétiques, les « phones »), leur production, leur variation plutôt que leur contexte. La sémantique ne fait donc pas partie de ce niveau d'analyse linguistique."))
 
-
-    elif cx == '4' or cx == 'h' or cx == 'help':
-        pt(c_blue('http://www.multideskos.com/'))
-
-    elif cx == '5':
-        pt(c_green("La phonétique (du grec « phônê » qui signifie la « voix », le « son ») est une branche de la linguistique qui étudie les sons utilisés dans la communication parlée. À la différence de la phonologie, qui étudie comment sont agencés les phonèmes d'une langue pour former des mots, la phonétique concerne les sons eux-mêmes (les unités phonétiques, les « phones »), leur production, leur variation plutôt que leur contexte. La sémantique ne fait donc pas partie de ce niveau d'analyse linguistique."))
-
-    elif cx == '6' or cx == 'q' or cx == 'exit':
-        shutdown = True
-    elif cx.upper() == USER:
-        pt(c_green('Vous venez d\'appeler une fonction.'))
-        pt('Car pour appeler une fonction, il suffit de taper son nom.')
+        elif cx == '6' or cx == 'q' or cx == 'exit':
+            shutdown = True
+        elif cx.upper() == USER:
+            pt(c_green('Vous venez d\'appeler une fonction.'))
+            pt('Car pour appeler une fonction, il suffit de taper son nom.')
+        else:
+            error = 1
+    print("\n")
+    if error == 1:
+        pt_err('Multidesk a planté')
+    elif error == 2:
+        pt_err('Multidesk a encore planté')
+    elif error == 0:
+        pt('Multidesk utilise des maintenant sa fonction fast shutdown...')
+        pt_err('Vos données n\'ont pas été sauvegardée mais c\'est normal il y a que 4Mo de ROM')
     else:
-        error = 1
-print("\n")
-if error == 1:
-    pt_err('Multidesk a planté')
-elif error == 2:
-    pt_err('Multidesk a encore planté')
-elif error == 0:
-    pt('Multidesk utilise des maintenant sa fonction fast shutdown...')
-    pt_err('Vos données n\'ont pas été sauvegardée mais c\'est normal il y a que 4Mo de ROM')
-else:
-    pt_err('Multidesk a vraiment planté')
+        pt_err('Multidesk a vraiment planté')
 
-time.sleep(6)
+    time.sleep(6)
+
+main(shutdown,cx,error,MENU_LIST,MENU_APPLICATIONS)
