@@ -61,3 +61,8 @@ def check_date(user_input):
 
 def check_signes(user_input):
     pass
+
+def give_horoscop():
+    day_predictions = []
+
+    pass
