@@ -25,7 +25,7 @@ except:
     USER=getpwuid(geteuid())[0].upper()
 
 MENU_LIST=['BIOS','Start (Pas le même que sur le Windows)','Panneau de configuration (Idem mais ça bug)','Program files','Aide','Définition phonétique','Stop']
-MENU_APPLICATIONS=['DOSEmu (Mieux que Windows NT)','Microsoft (Pas obligé)','Compute','Eclipse pour ArnoldC','Windows Vistux Mint','AntiBug v2.0','FTP','Horoscopy','No Homo Bot','VMultideskOS']
+MENU_APPLICATIONS=['DOSEmu (Mieux que Windows NT)','Microsoft (Pas obligé)','Compute','Eclipse pour ArnoldC','Windows Vistux Mint','AntiBug v2.0','FTP','Horoscopy','No Homo Bot','VMultideskOS','Pizza.be']
 
 cx = None
 error = 0
@@ -51,6 +51,7 @@ def startx():
     time.sleep(1)
     pt_err('Seul les fichiers de 766 Octets sont pris en charge pour l\'instant')
     pt(c_blue(USER))
+    pt_err('Remerciements à notre plus gros sponsor: McKinsey&Company')
     pt('....')
 
 ################################################################################
@@ -137,6 +138,9 @@ def main(shutdown,cx,error,MENU_LIST,MENU_APPLICATIONS):
 
                 elif choice == '2':
                     pt_err("erreur d'encodage")
+
+            elif cx == '10':
+                pt(c_green("Lien vers le site de notre deuxième plus gros sponsor : pizza.be (copie-colle dans ton navigateur stp)"))
 
 
         elif cx == '4' or cx == 'h' or cx == 'help':
